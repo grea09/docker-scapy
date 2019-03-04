@@ -9,8 +9,9 @@ RUN apt-get install -qq -y python3 python3-pip tcpdump libpcap-dev iproute2 proc
 RUN apt-get clean
 RUN pip3 install --no-cache-dir -U pip
 RUN pip3 install --no-cache-dir rpyc==3.4.4 scapy cryptography vpython
+RUN echo 'iptables -A OUTPUT -p tcp --tcp-flags RST RST -j DROP' >> /bootstrap.sh
+RUN echo 'iptables -L' >> /bootstrap.sh
 RUN echo 'sleep infinity' >> /bootstrap.sh
 RUN chmod +x /bootstrap.sh
-
 
 CMD /bootstrap.sh
